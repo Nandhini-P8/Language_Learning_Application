@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatGPT Demo</title>
+    <style>
+        #chat-container {
+            width: 400px;
+            height: 500px;
+            border: 1px solid #ccc;
+            overflow: auto;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-log"></div>
+    </div>
+    <input type="text" id="user-input" placeholder="Type your message..." />
+    <button id="send-button">Send</button>
+
+    <script>
+        
+        const chatLog = document.getElementById('chat-log');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const userMessage = userInput.value;
+            if (userMessage.trim() === '') return;
+
+            appendMessage('You', userMessage);
+
+            // Send userMessage to your backend for processing by ChatGPT
+            // You can use APIs like fetch or axios to send the message and receive a response
+
+            // For now, let's simulate a response from the AI
+            const aiResponse = 'Hello! I am ChatGPT, how can I assist you today?';
+            setTimeout(() => {
+                appendMessage('ChatGPT', aiResponse);
+            }, 500);
+
+            userInput.value = '';
+        }
+
+        function appendMessage(sender, message) {
+            const messageElement = document.createElement('div');
+            messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            chatLog.appendChild(messageElement);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+    </script>
+</body>
+</html>
